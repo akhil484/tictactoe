@@ -1,0 +1,92 @@
+<html>
+<head>
+	<title>TicTacToe</title>
+	<style type="text/css">
+		body
+		{
+			margin: 8px;
+			margin-top: 10px;
+			background-color:green;
+			text-align: center;
+		}
+		.col
+		{
+			display: inline-block;
+			width:80px;
+			height: 60px;
+			text-align: center;
+			background-color: white;
+			margin-top: 2px;
+			padding:20px;
+			padding-top:20px;
+			font-size: 50px;
+		}
+	</style>
+	<script  src="http://code.jquery.com/jquery-1.9.1.min.js" ></script> 
+	<script>
+		$(document).ready(function(){
+        $(".col").click(function() {     
+ 
+          $this=$(this);
+          const i=$(this).data('i');   
+ 		  const j=$(this).data('j'); 
+ 		  //$("#result").html( "Row_num =" + i + "  ,  Column_num ="+ j);  
+ 		  $.ajax({
+  			type : 'POST',
+  			url : "{{url_for('show')}}",
+  			contentType: 'application/json;charset=UTF-8',
+  			dataType:"json",
+  			data : JSON.stringify({'row':i,
+  					'column':j}),
+  			success: function(data){
+  						console.log('test');
+        				window.location.reload();
+		},
+		error: function(e, msg) {
+      console.log(e, msg)
+}
+			});
+        });
+    });
+	</script>
+</head>
+
+<body>
+	<div id="result"> </div>
+
+	<!-- <div class="row">
+		<div class="col" data-i=0 data-j=0"></div>
+		<div class="col" data-i=0 data-j=1"></div>
+		<div class="col" data-i=0 data-j=2"></div>
+	</div>
+	<div class="row">
+		<div class="col" data-i=1 data-j=0"></div>
+		<div class="col" data-i=1 data-j=1"></div>
+		<div class="col" data-i=1 data-j=2"></div>
+	</div>
+	<div class="row">
+		<div class="col" data-i=2 data-j=0"></div>
+		<div class="col" data-i=2 data-j=1"></div>
+		<div class="col" data-i=2 data-j=2"></div>
+	</div> -->
+	<div>
+		{% for col in (0,1,2) %}
+			<div class="col" data-i=0 data-j={{col}}> {{gameboard[0][col]}} </div>
+		{% endfor %}
+	</div>
+	<div>
+		{% for col in (0,1,2) %}
+			<div class="col" data-i=1 data-j={{col}}> {{gameboard[1][col]}}</div>
+		{% endfor %}
+	</div>
+	<div>
+		{% for col in (0,1,2) %}
+			<div class="col" data-i=2 data-j={{col}}> {{gameboard[2][col]}} </div>
+		{% endfor %}
+	</div>
+	{% if state %}
+	<p> game over you {{ msg }}</p>
+	{% endif %}
+	<button><a href='/restart'>Restart game</a></button>
+</body>
+</html
