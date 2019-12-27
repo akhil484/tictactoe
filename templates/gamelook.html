@@ -6,7 +6,7 @@
 		{
 			margin: 8px;
 			margin-top: 10px;
-			background-color:green;
+			background-color:cyan;
 			text-align: center;
 		}
 		.col
@@ -15,22 +15,44 @@
 			width:80px;
 			height: 60px;
 			text-align: center;
-			background-color: white;
+			background-color: black;
+			color:white;
 			margin-top: 2px;
 			padding:20px;
 			padding-top:20px;
 			font-size: 50px;
 		}
+		.button
+		{
+			margin-top: 20px;
+			font-size: 15px;
+			background-color:purple;
+			color:white;
+			width:80px;
+			border: none;
+		}
+		a
+		{
+			color:white;
+			text-decoration: none;
+		}
 	</style>
 	<script  src="http://code.jquery.com/jquery-1.9.1.min.js" ></script> 
 	<script>
+		//to stop sending requests after game ends
+		let gameEnded = false
+		{% if state %}
+			gameEnded = true
+		{% endif %}
 		$(document).ready(function(){
         $(".col").click(function() {     
- 
+ 		  if(gameEnded)
+ 		  {
+ 		  	return 
+ 		  }
           $this=$(this);
           const i=$(this).data('i');   
  		  const j=$(this).data('j'); 
- 		  //$("#result").html( "Row_num =" + i + "  ,  Column_num ="+ j);  
  		  $.ajax({
   			type : 'POST',
   			url : "{{url_for('show')}}",
@@ -52,23 +74,6 @@
 </head>
 
 <body>
-	<div id="result"> </div>
-
-	<!-- <div class="row">
-		<div class="col" data-i=0 data-j=0"></div>
-		<div class="col" data-i=0 data-j=1"></div>
-		<div class="col" data-i=0 data-j=2"></div>
-	</div>
-	<div class="row">
-		<div class="col" data-i=1 data-j=0"></div>
-		<div class="col" data-i=1 data-j=1"></div>
-		<div class="col" data-i=1 data-j=2"></div>
-	</div>
-	<div class="row">
-		<div class="col" data-i=2 data-j=0"></div>
-		<div class="col" data-i=2 data-j=1"></div>
-		<div class="col" data-i=2 data-j=2"></div>
-	</div> -->
 	<div>
 		{% for col in (0,1,2) %}
 			<div class="col" data-i=0 data-j={{col}}> {{gameboard[0][col]}} </div>
@@ -85,8 +90,9 @@
 		{% endfor %}
 	</div>
 	{% if state %}
-	<p> game over you {{ msg }}</p>
+	<h1>{{ msg }}</h1>
 	{% endif %}
-	<button><a href='/restart'>Restart game</a></button>
+	<button class="button"><a href='/restart'><p>Restart</p></a>
+	</button>
 </body>
 </html

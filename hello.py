@@ -5,12 +5,12 @@ class tictactoe():
                 self.game=[[0,0,0],
                                [0,0,0],
                                [0,0,0]]
-                self.check=False
-                self.flag=0
-                self.player = 2
-                self.turn=0
-                self.state = 0
-                self.score=-1000
+                self.check=False 			#To run main function
+                self.flag=0 				#To return true or false in case of win
+                self.player = 2				#To check player's turn
+                self.turn=0					#To check whether current player chose the right position
+                self.state = 0				#for Flask print
+                self.score=-1000			#for minimax
 
 
 
@@ -39,10 +39,11 @@ class tictactoe():
                                 return False
                 # Horizontal
                 self.flag = 0
+                self.score=-1000
                 for row in self.game:
                         #print(row)
                         if all(row):
-                                #print("Player",row[0],"is the winner horizontally!")
+                                
                                 if row[0]=='X':
                                         self.score=10
                                 else:
@@ -64,7 +65,7 @@ class tictactoe():
                                 self.score=-10
                         if not tree:
                                 self.display("winner")
-                                #print("Player",diag[0],"is the winner Diagonally(/)!")
+                                
                         self.flag=1
                         #return True
 
@@ -80,8 +81,6 @@ class tictactoe():
                         if not tree:
                                 self.display("winner")
                         self.flag=1
-                        #print("Player",diag[0],"is the winner Diagonally(\\)!")
-                        #return True
         
 
                 # Vertical
@@ -98,11 +97,8 @@ class tictactoe():
                                 if not tree:
                                         self.display("winner")
                                 self.flag=1
-                                #print("Player",check[0],"is the winner Vertically!")  
-                                #return True
-
-
-                print(self.flag, tree)
+                                  
+                # return True or False according to win condition    
                 if self.flag == 1:
                         if not tree:
                             self.state = self.player
@@ -114,62 +110,33 @@ class tictactoe():
                                 if self.game[i][j]==0:
                                     draw = False
 
-                print('draw ->', draw)
                 if draw:
-                        if not tree:
-                            self.state = 3
-                            self.display("Draw")
-                        return True
- 
+                    if not tree:
+                        self.state = 3
+                        self.display("Draw")
+                    else:
+                    	self.score=0
+
+                    return True
                 return False
 
 
-
-
-                #if self.flag == 0:
-                #self.flag=2
-                #for i in range(0,3):
-                #        for j in range(0,3):
-                #                if self.game[i][j]==0:
-                #                        self.flag=0
-                #                        break
-                #        if self.flag==0:
-                #                break
-
-                #print(tree, self.flag)
-                #if(self.flag==0):
-                #        return False
-                #elif self.flag==2:
-                #        if not tree:
-                #            self.state = 3
-                #            self.display("Draw")
-                #        return True
-                #else:
-                #        if not tree:
-                #            self.state = self.player
-                #        #self.display("Draw")
-                #        return True
-
-
         def print_gameboard(self):
-                print ("   "+"  ".join([str(i) for i in range(len(self.game))]))
-                for count,row in enumerate(self.game):
+            print ("   "+"  ".join([str(i) for i in range(len(self.game))]))
+            for count,row in enumerate(self.game):
+                print (count,row)
 
-                        print (count,row)
 
-        def ret_board(self):
-                return self.game
+
         def game_board(self,row=0, column=0,display=True):
                 try:
                         self.turn=0
                         if self.game[row][column]!=0:
                                 self.display("filled")
-                                #print("This is position is occupied!!!!!!!. Try another")
+                                
                                 self.print_gameboard()
                                 self.check = False
                                 return False
-                        #elif display:
-                                #self.print_gameboard()
                         self.change_player()
                         if self.player == 1:
                                 self.game[row][column]='O'
@@ -215,10 +182,6 @@ class Bot(tictactoe):
                         return result
                         
 
-                """if score==10:
-                        return score
-                if score==-10:
-                        return score"""
                 if isMax:
                         best=-1000
                         for i in range(0,3):
@@ -285,7 +248,6 @@ class Bot(tictactoe):
 if __name__ == '__main__':
         g=Bot()
         while g.chec()==False:
-                #g.print_gameboard()
                 row_choice=int(input("Which row do you want to choose?(0,1,2): "))
                 column_choice=int(input("Which column do you want to choose?(0,1,2): "))
                 g.play(row_choice, column_choice)

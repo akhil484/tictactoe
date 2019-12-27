@@ -1,14 +1,8 @@
 from flask import Flask,render_template,request,jsonify, session, redirect, url_for
-#from requests import request
 from hello import Bot
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
-
-
-@app.route('/')
-def home():
-        return '<h1 color:"Blue">test</h1>'
 
 
 @app.route('/restart')
@@ -29,9 +23,9 @@ def show():
         msg = ''
         if GamePlay.state != 0:
                     if GamePlay.state == 1:
-                        msg = 'You won'
+                        msg = 'You won!!!'
                     elif GamePlay.state == 3:
-                        msg = 'Its a draw'
+                        msg = 'Match drawn'
                     else:
                         msg = 'You lost'
 
