@@ -74,21 +74,16 @@
 </head>
 
 <body>
+	{% for row in range(0,3) %}
 	<div>
-		{% for col in (0,1,2) %}
-			<div class="col" data-i=0 data-j={{col}}> {{gameboard[0][col]}} </div>
+		
+		{% for col in range(0,3) %}
+			<div class="col" data-i={{row}} data-j={{col}}> {{gameboard[row][col]}} </div>
 		{% endfor %}
+		
 	</div>
-	<div>
-		{% for col in (0,1,2) %}
-			<div class="col" data-i=1 data-j={{col}}> {{gameboard[1][col]}}</div>
-		{% endfor %}
-	</div>
-	<div>
-		{% for col in (0,1,2) %}
-			<div class="col" data-i=2 data-j={{col}}> {{gameboard[2][col]}} </div>
-		{% endfor %}
-	</div>
+	{% endfor %}
+	
 	{% if state %}
 	<h1>{{ msg }}</h1>
 	{% endif %}
