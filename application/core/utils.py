@@ -1,4 +1,4 @@
-import random
+
 class tictactoe():
  
         def __init__(self):
@@ -8,7 +8,7 @@ class tictactoe():
                 self.check=False 			#To run main function
                 self.flag=0 				#To return true or false in case of win
                 self.player = 2				#To check player's turn
-                self.turn=0					#To check whether current player chose the right position
+                self.turn=0				#To check whether current player chose the right position
                 self.state = 0				#for Flask print
                 self.score=-1000			#for minimax
 
@@ -243,12 +243,3 @@ class Bot(tictactoe):
                                 row, col = self.bot()
                                 bot_res=self.game_board(row,col,display=False)
                 return
-                 
-
-if __name__ == '__main__':
-        g=Bot()
-        while g.chec()==False:
-                row_choice=int(input("Which row do you want to choose?(0,1,2): "))
-                column_choice=int(input("Which column do you want to choose?(0,1,2): "))
-                g.play(row_choice, column_choice)
-

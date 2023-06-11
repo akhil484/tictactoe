@@ -1,0 +1,98 @@
+{% load my_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TicTacToe</title>
+	<style type="text/css">
+		body
+		{
+			margin: 8px;
+			margin-top: 10px;
+			background-color:cyan;
+			text-align: center;
+		}
+		.col
+		{
+			display: inline-block;
+			width:80px;
+			height: 60px;
+			text-align: center;
+			background-color: black;
+			color:white;
+			margin-top: 2px;
+			padding:20px;
+			padding-top:20px;
+			font-size: 50px;
+		}
+		.button
+		{
+			margin-top: 20px;
+			font-size: 15px;
+			background-color:purple;
+			color:white;
+			width:80px;
+			border: none;
+		}
+		a
+		{
+			color:white;
+			text-decoration: none;
+		}
+	</style>
+
+</head>
+
+<body>
+	
+{% for row in range %}
+	<div>
+		
+		{% for col in range %}
+			<div class="col" data-i={{row}} data-j={{col}}> {% give_value gameboard row col %} </div>
+		{% endfor %}
+		
+	</div>
+	{% endfor %}
+	
+	{% if state %}
+	<h1>{{ msg }}</h1>
+	{% endif %}
+	<button class="button"><a href='/core/restart'><p>Restart</p></a>
+	</button>
+
+
+	<script  src="http://code.jquery.com/jquery-1.9.1.min.js" ></script> 
+	<script>
+		//to stop sending requests after game ends
+		let gameEnded = false
+		{% if state %}
+			gameEnded = true
+		{% endif %}
+		$(document).ready(function(){
+        $(".col").click(function() {     
+ 		  if(gameEnded)
+ 		  {
+ 		  	return 
+ 		  }
+          $this=$(this);
+          const i=$(this).data('i');   
+ 		  		const j=$(this).data('j'); 
+ 		  		
+ 		  		$.ajax({
+  					type : 'POST',
+  					url : "/core/play-game",
+  					data : {'row':i, 'column':j, csrfmiddlewaretoken: '{{ csrf_token }}'},
+  					success: function(data){
+  						console.log('test');
+        			window.location.reload();
+						},
+						error: function(e, msg) {
+      				console.log(e, msg)
+						}
+						});
+        });
+    });
+	</script>
+</body>
+</html
