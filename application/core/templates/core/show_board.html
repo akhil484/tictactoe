@@ -3,28 +3,38 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>TicTacToe</title>
 	<style type="text/css">
 		body
 		{
 			margin: 8px;
 			margin-top: 10px;
-			background-color:cyan;
+			background-color:#FFF8DC;
 			text-align: center;
 		}
+		
 		.col
 		{
 			display: inline-block;
 			width:80px;
-			height: 60px;
+			height: 80px;
 			text-align: center;
-			background-color: black;
-			color:white;
+			background-color: #72A0C1;
 			margin-top: 2px;
 			padding:20px;
 			padding-top:20px;
 			font-size: 50px;
 		}
+		.yell{
+			padding: 0 5px 0 5px;
+			color:yellow;
+		}
+		.red{
+			padding: 0 5px 0 5px;
+			color:red;
+		}
+
 		.button
 		{
 			margin-top: 20px;
@@ -46,10 +56,10 @@
 <body>
 	
 {% for row in range %}
-	<div>
+	<div class="row-container">
 		
 		{% for col in range %}
-			<div class="col" data-i={{row}} data-j={{col}}> {% give_value gameboard row col %} </div>
+			<div class="col" data-i={{row}} data-j={{col}}>{% give_value gameboard row col %}</div>
 		{% endfor %}
 		
 	</div>

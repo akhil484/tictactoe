@@ -2,9 +2,9 @@
 class tictactoe():
  
         def __init__(self):
-                self.game=[[0,0,0],
-                               [0,0,0],
-                               [0,0,0]]
+                self.game=[     ['','',''],
+                                ['','',''],
+                                ['','',''] ]
                 self.check=False 			#To run main function
                 self.flag=0 				#To return true or false in case of win
                 self.player = 2				#To check player's turn
@@ -33,7 +33,7 @@ class tictactoe():
 
         def win(self, tree=False):
                 def all(l):
-                        if(l.count(l[0])==len(l) and l[0]!=0):
+                        if(l.count(l[0])==len(l) and l[0]!=''):
                                 return True
                         else:
                                 return False
@@ -107,7 +107,7 @@ class tictactoe():
                 draw = True
                 for i in range(0,3):
                         for j in range(0,3):
-                                if self.game[i][j]==0:
+                                if self.game[i][j]=='':
                                     draw = False
 
                 if draw:
@@ -131,7 +131,7 @@ class tictactoe():
         def game_board(self,row=0, column=0,display=True):
                 try:
                         self.turn=0
-                        if self.game[row][column]!=0:
+                        if self.game[row][column]!='':
                                 self.display("filled")
                                 
                                 self.print_gameboard()
@@ -186,21 +186,21 @@ class Bot(tictactoe):
                         best=-1000
                         for i in range(0,3):
                                 for j in range(0,3):
-                                        if self.game[i][j]==0:
+                                        if self.game[i][j]=='':
                                                 self.game[i][j]='X'
                                                 #Min turn
                                                 best = max( best,self.minimax(depth+1, False) )
-                                                self.game[i][j]=0
+                                                self.game[i][j]=''
                         return best
                 else:
                         best=1000
                         for i in range(0,3):
                                 for j in range(0,3):
-                                        if self.game[i][j]==0:
+                                        if self.game[i][j]=='':
                                                 self.game[i][j]='O'
                                                 #Max turn
                                                 best = min( best,self.minimax(depth+1, True) )
-                                                self.game[i][j]=0
+                                                self.game[i][j]=''
                         return best
         
 
@@ -210,10 +210,10 @@ class Bot(tictactoe):
                 col_b=-1
                 for i in range(0,3):
                         for j in range(0,3):
-                                if self.game[i][j]==0:
+                                if self.game[i][j]=='':
                                         self.game[i][j]='X'
                                         moveval=self.minimax(0,False)
-                                        self.game[i][j]=0
+                                        self.game[i][j]=''
                                         if moveval > bestval:
                                         
                                                 row_b=i
