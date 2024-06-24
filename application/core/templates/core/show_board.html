@@ -75,10 +75,10 @@
 	<script  type="text/javascript" src="/static/core/js/jquerymin.js" ></script> 
 	<script>
 		//to stop sending requests after game ends
-		let gameEnded = false
-		if('{{state}}' == 1)
+		let gameEnded = false;
+		if('{{state}}'!=0)
 		{
-			gameEnded = true
+			gameEnded = true;
 		}
 		$(document).ready(function(){
         $(".col").click(function() {     
