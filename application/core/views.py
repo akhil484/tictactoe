@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.http import HttpResponse
 from core.utils import Bot
-from django import template
-register = template.Library()
+
 
 
 def show_board(request):
@@ -35,8 +34,5 @@ def show_board(request):
 
 def restart(request):
 	request.session['game'] = Bot().__dict__
-	return redirect('/core/play-game')
+	return redirect('/')
 
-@register.filter
-def give_value(gameboard,i,j):
-	return gameboard[i][j]

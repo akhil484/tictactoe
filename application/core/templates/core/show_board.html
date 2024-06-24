@@ -68,7 +68,7 @@
 	{% if state %}
 	<h1>{{ msg }}</h1>
 	{% endif %}
-	<button class="button"><a href='/core/restart'><p>Restart</p></a>
+	<button class="button"><a href='/restart'><p>Restart</p></a>
 	</button>
 
 
@@ -76,9 +76,10 @@
 	<script>
 		//to stop sending requests after game ends
 		let gameEnded = false
-		{% if state %}
+		if('{{state}}' == 1)
+		{
 			gameEnded = true
-		{% endif %}
+		}
 		$(document).ready(function(){
         $(".col").click(function() {     
  		  if(gameEnded)
@@ -91,7 +92,7 @@
  		  		
  		  		$.ajax({
   					type : 'POST',
-  					url : "/core/play-game",
+  					url : "/",
   					data : {'row':i, 'column':j, csrfmiddlewaretoken: '{{ csrf_token }}'},
   					success: function(data){
   						console.log('test');
